@@ -5,6 +5,9 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import passport from "passport";
+import { connectDatabase } from "@configs";
+import { router } from "./routes";
+import { errors } from "celebrate";
 
 // package.json
 const packageJson = require("../package.json");
@@ -12,12 +15,9 @@ const packageJson = require("../package.json");
 const app = express();
 
 // Helmet Setup
-// TODO: Look into more options from helmet and try to implement
 app.use(helmet());
-app.set("trust proxy", true);
 
 // CORS Setup
-// TODO: More advance feature can be added here
 // if (!inProduction()) {
 app.use(cors());
 // }
@@ -34,15 +34,14 @@ app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(compression());
 
 // Logger
-app.use(morgan("combined")); // TODO: fix morgan with winston
+app.use(morgan("combined"));
 
 // Passport Setup
 // app.use(passport.initialize());
 // passportConfigure(passport);
 
-
-// Database Connection: MONGO
-// require("@utils/database/mongo");
+// Connect Database: MONGO
+connectDatabase();
 
 app.get("/", (req, res) => {
   res.send({
@@ -52,8 +51,9 @@ app.get("/", (req, res) => {
 });
 
 // Routes
-// app.use("/api/v1", routerV2); // api version 2 routes
+app.use("/api/v1", router);
 
+app.use(errors());
 // app.use(errorHandler); // custom error handler
 
 export { app };

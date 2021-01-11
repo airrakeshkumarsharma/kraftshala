@@ -11,5 +11,6 @@ moduleAlias.addAliases({
   "@middlewares": `${__dirname}/middlewares`,
   "@scripts": `${__dirname}/scripts`,
   "@models": `${__dirname}/models/index`,
-  "@validators": `${__dirname}/validators`,
+  "@validators": `${__dirname}/validators/index`,
+  "@projection": `${__dirname}/projection/index`
 });
