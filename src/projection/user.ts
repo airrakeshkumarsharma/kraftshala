@@ -41,6 +41,7 @@ const mapFunction = (fun: any) => {
  */
 function basic() {
   return {
+    userType: 1,
     email: 1,
     name: 1
   };

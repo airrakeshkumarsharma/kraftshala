@@ -13,5 +13,9 @@ const error = {
 export const errorRes = {
   login: () => error.unauthorized("Username/password in incorrect"),
   onlyThisFileTypeAllowed: (extension: string) => error.forbidden(`Only ${extension}`),
-  invalidFile: () => error.forbidden("Invalid file")
+  invalidFile: () => error.forbidden("Invalid file"),
+  wrongData: () => error.badRequest("Invalid data"),
+  dataExists: () => error.conflict("Data exists"),
+  invalidToken: () => error.unauthorized("Invalid token"),
+  systemError: () => error.badImplementation("Something went wrong")
 };

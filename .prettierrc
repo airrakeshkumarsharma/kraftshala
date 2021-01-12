@@ -8,5 +8,5 @@
   "jsxBracketSameLine": true,
   "arrowParens": "avoid",
   "trailingComma": "none",
-  "printWidth": 160
+  "printWidth": 120
 }

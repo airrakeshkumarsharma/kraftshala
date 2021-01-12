@@ -7,7 +7,8 @@ import morgan from "morgan";
 import passport from "passport";
 import { connectDatabase } from "@configs";
 import { router } from "./routes";
-import { errors } from "celebrate";
+import { errorHandler } from "@middlewares/errorHandler";
+import { passportConfigure } from "@helpers/auth/jwtValidator";
 
 // package.json
 const packageJson = require("../package.json");
@@ -37,13 +38,13 @@ app.use(compression());
 app.use(morgan("combined"));
 
 // Passport Setup
-// app.use(passport.initialize());
-// passportConfigure(passport);
+app.use(passport.initialize());
+passportConfigure(passport);
 
 // Connect Database: MONGO
 connectDatabase();
 
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
   res.send({
     name: packageJson.name,
     version: packageJson.version
@@ -53,7 +54,7 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/v1", router);
 
-app.use(errors());
-// app.use(errorHandler); // custom error handler
+// app.use(errors());
+app.use(errorHandler); // custom error handler
 
 export { app };

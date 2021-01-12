@@ -1,6 +1,7 @@
 import { mongoose } from "@configs";
 
 export interface UserI {
+  userType: string;
   name: string;
   email: string;
   password?: string;

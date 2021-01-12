@@ -1,9 +1,10 @@
+import _ from "lodash";
 import { loginToken } from "@helpers/auth/tokenGenerator";
 import { createHash } from "@helpers/crypto/hmac-sha-256";
 import { errorRes } from "@middlewares/error";
 import userService from "@services/user";
 import { Request, Response } from "express";
-import { userProjection } from "../projection/user";
+import { userProjection } from "@projection";
 import BaseController from "./base";
 
 export default class UserAuthController extends BaseController {
@@ -23,15 +24,16 @@ export default class UserAuthController extends BaseController {
     const filters = { emailHash };
     const projection = userProjection(["basic", "minimal", "internal"]);
     const userDbData = await this.service.getOne(filters, projection);
-    if (!userDbData || userDbData.validatePassword(password)) {
+    if (!userDbData || !userDbData.validatePassword(password)) {
       throw errorRes.login();
     }
 
     // Generate login Token
-    const data = { _id: userDbData._id };
+    let data: object = { _id: userDbData._id, userType: userDbData.userType };
     const token: string = loginToken(data);
+    data = { ...data, name: userDbData.name, email: userDbData.email, token };
 
     // TODO: Send through standard response
-    return res.send({ data: { userDbData, token } });
+    return res.send({ data });
   };
 }

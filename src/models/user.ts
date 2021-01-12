@@ -1,6 +1,6 @@
-import { Schema, Model, model } from "mongoose";
+import { Schema, Model, model, Query } from "mongoose";
 import UserSI from "@interfaces/user";
-import { CONSTANTS } from "@configs";
+import { CONSTANTS, mongoose } from "@configs";
 import { hashPassword, validatePassword } from "@helpers/bycrypt";
 import { createHash } from "@helpers/crypto/hmac-sha-256";
 import { decrypt, encrypt } from "@helpers/crypto/aes-256-cbc";
