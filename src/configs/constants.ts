@@ -5,11 +5,15 @@ export const CONSTANTS = {
   },
   // All collection name
   COLLECTIONS: {
-    USERS: "users"
+    USERS: "users",
+    ASSIGNMENT: "assignment"
   },
 
   TOKEN_EXPIRE_TIME: {
     LOGIN: "30d"
+  },
+  MIME_TYPE: {
+    ASSIGNMENT_FILE: ["application/pdf"]
   },
   SALT_ROUNDS: 8
 };
