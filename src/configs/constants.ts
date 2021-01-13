@@ -19,5 +19,8 @@ export const CONSTANTS = {
   MIME_TYPE: {
     ASSIGNMENT_FILE: ["application/pdf"]
   },
-  SALT_ROUNDS: 8
+  SALT_ROUNDS: 8,
+  PAGINATION: {
+    PER_PAGE: 100
+  }
 };

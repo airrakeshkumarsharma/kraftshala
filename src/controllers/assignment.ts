@@ -4,6 +4,7 @@ import BaseController from "./base";
 import { errorRes } from "@middlewares/error";
 import { saveFile } from "@services/uploadFile";
 import { assignmentUrlGenerator, solutionUrlGenerator } from "@helpers/urlGenerator";
+import { assignmentProjection } from "../projection/assignment";
 
 export default class AssignmentController extends BaseController {
   service;
@@ -50,5 +51,22 @@ export default class AssignmentController extends BaseController {
     await this.service.updateOne(filters, payload);
 
     return res.send({ data: "Assignment submitted successfully" });
+  };
+
+  getAssignmentsByStudent = async (req: Request, res: Response) => {
+    const { filters, sort }: any = req.query;
+    const { _id: studentId }: any = req.user;
+
+    filters.push({ key: "studentId", value: studentId, type: "id" });
+
+    try {
+      const projection = assignmentProjection(["basic"]);
+
+      const pipeline = { filters, projection, sort };
+      const assignments = await this.service.getAllAssignments(pipeline);
+      return res.send({ data: assignments });
+    } catch (error) {
+      console.log(error);
+    }
   };
 }

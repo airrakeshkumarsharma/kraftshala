@@ -3,7 +3,7 @@ import AssignmentController from "@controllers/assignment";
 import { asyncMiddleware } from "@middlewares/asyncMiddleware";
 import { instructorAuth, studentAuth } from "@middlewares/auth";
 import { fileValidator, validator } from "@middlewares/validator";
-import { assignmentSchema } from "@validators";
+import { assignmentSchema, pipeline as pipelineSchema } from "@validators";
 import { Router } from "express";
 
 const routes = Router();
@@ -17,11 +17,18 @@ routes.post(
   asyncMiddleware(assignmentController.assign)
 );
 
-routes.post(
+routes.put(
   "/submit-assignment/:assignmentId",
   studentAuth,
   fileValidator([...CONSTANTS.MIME_TYPE.ASSIGNMENT_FILE], null, 10 * 1024 * 1024).single("file"),
   asyncMiddleware(assignmentController.submitAssignment)
+);
+
+routes.get(
+  "/get-assignments",
+  studentAuth,
+  validator({ query: pipelineSchema }),
+  asyncMiddleware(assignmentController.getAssignmentsByStudent)
 );
 
 export { routes as assignmentRoutes };

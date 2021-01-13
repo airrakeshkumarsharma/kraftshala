@@ -26,6 +26,11 @@ export default class BaseService<T> {
     return resource;
   };
 
+  aggregate = async (pipeline: object[]): Promise<T[]> => {
+    const resource = (await this.model.aggregate(pipeline)) as T[];
+    return resource;
+  };
+
   getById = async (id: string, projection: object): Promise<T> => {
     const resource = (await this.model.findOne({ _id: mongoose.Types.ObjectId(id) }, projection)) as T;
     return resource;

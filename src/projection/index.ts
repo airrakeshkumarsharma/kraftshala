@@ -6,3 +6,4 @@
 
 export { userProjection } from "./user";
 export { instructorAssignmentProjection } from "./intructorAssignment";
+export { assignmentProjection } from "./assignment";

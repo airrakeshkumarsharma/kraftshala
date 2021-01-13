@@ -8,6 +8,8 @@ export interface AssignmentI {
   solutionPdf: string;
   isSubmitted: boolean;
   submittedAt: Date;
+  student: any;
+  instructor: any;
 }
 
 export default interface AssignmentSI extends AssignmentI, mongoose.Document {}
