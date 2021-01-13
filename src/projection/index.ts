@@ -5,3 +5,4 @@
  */
 
 export { userProjection } from "./user";
+export { instructorAssignmentProjection } from "./intructorAssignment";

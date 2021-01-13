@@ -1,2 +1,3 @@
-export { userAuthSchema } from "./user.auth";
+export { userSchema } from "./user";
+export { instructorAssignmentSchema } from "./instructorAssignment";
 export { assignmentSchema } from "./assignment";

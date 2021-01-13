@@ -1,20 +1,29 @@
+import { Types } from "mongoose";
 import { Schema, Model, model } from "mongoose";
 import { CONSTANTS } from "@configs";
 import AssignmentSI from "@interfaces/assignment";
 
 const assignmentSchema: Schema<any> = new Schema(
   {
-    title: {
-      type: String
+    assignmentId: {
+      type: Types.ObjectId,
+      required: true
     },
-    subject: {
-      type: String
+    instructorId: {
+      type: Types.ObjectId,
+      required: true
     },
-    question: {
-      type: String
+    studentId: {
+      type: Types.ObjectId,
+      required: true
     },
-    deadline: {
-      type: Date
+    isSubmitted: {
+      type: Boolean,
+      default: false
+    },
+    submittedAt: {
+      type: Date,
+      default: null
     }
   },
   {

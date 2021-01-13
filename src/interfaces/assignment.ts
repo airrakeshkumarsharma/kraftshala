@@ -1,10 +1,12 @@
+import { Types } from "mongoose";
 import { mongoose } from "@configs";
 
 export interface AssignmentI {
-  title: string;
-  subject: string;
-  question: string;
-  deadline: Date;
+  assignmentId: Types.ObjectId;
+  instructorId: Types.ObjectId;
+  studentId: Types.ObjectId;
+  isSubmitted: boolean;
+  submittedAt: Date;
 }
 
 export default interface AssignmentSI extends AssignmentI, mongoose.Document {}

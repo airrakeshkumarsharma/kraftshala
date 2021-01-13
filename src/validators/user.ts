@@ -1,7 +1,7 @@
 import { CONSTANTS, ENUMS, ENUMS_ARRAY } from "@configs";
 import { Joi } from "celebrate";
 
-export const userAuthSchema = {
+export const userSchema = {
   create: Joi.object().keys({
     userType: Joi.string()
       .valid(...ENUMS_ARRAY.USERS.userType)

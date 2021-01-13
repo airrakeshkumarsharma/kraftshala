@@ -11,6 +11,11 @@ export default class BaseService<T> {
     return resource;
   };
 
+  insertMany = async (data: T[]) => {
+    const resource = await this.model.insertMany(data);
+    return resource;
+  };
+
   get = async (filters = {}, projection: object): Promise<T[]> => {
     const resource = (await this.model.find(filters, projection)) as T[];
     return resource;

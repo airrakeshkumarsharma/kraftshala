@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import assignmentService from "@services/assignment";
 import BaseController from "./base";
-import { saveFile } from "@services/uploadFile";
-import { assignmentUrlGenerator } from "@helpers/urlGenerator";
+import { errorRes } from "@middlewares/error";
 
 export default class AssignmentController extends BaseController {
   service;
@@ -11,18 +10,23 @@ export default class AssignmentController extends BaseController {
     this.service = assignmentService;
   }
 
-  upload = async (req: Request, res: Response) => {
-    const { title, ...data } = req.body;
-    const { _id: instructorId }: any = req.user; // FIXME:// Type script error. Need to solve
-    const { file } = req;
+  assign = async (req: Request, res: Response) => {
+    const { studentIds, ...data } = req.body;
+    const { _id: instructorId }: any = req.user;
 
-    // Upload file
-    const { url } = saveFile(file.buffer, assignmentUrlGenerator(title, file.mimetype));
+    // Check wether its deadline is over
+    const assignmentDeadlineCondition = { instructorId, deadline: { $gt: new Date() } };
+    const isDeadlineOver = await this.service.isDeadlineOver(assignmentDeadlineCondition);
+    if (!isDeadlineOver) {
+      throw errorRes.deadLineOver();
+    }
 
-    // Add alignments
-    const dbData = { ...data, title, instructorId, question: url };
-    this.service.post(dbData);
+    // Create Object to assign the assignment to all the student which is coming with studentIds
+    const assignToAllStudents: any[] = [];
+    studentIds.forEach((studentId: any) => assignToAllStudents.push({ ...data, studentId, instructorId }));
 
-    return res.send({ data: "Assignment created" });
+    await this.service.insertMany(assignToAllStudents);
+
+    return res.send({ data: "Assignment assigned successfully" });
   };
 }

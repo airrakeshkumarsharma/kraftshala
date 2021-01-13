@@ -1,9 +1,9 @@
 import { Joi } from "celebrate";
+import { CONSTANTS } from "../configs/constants";
 
 export const assignmentSchema = {
   create: Joi.object().keys({
-    title: Joi.string().required(),
-    subject: Joi.string().required(),
-    deadline: Joi.date().required()
+    assignmentId: Joi.string().regex(CONSTANTS.REGEX.MONGO_OBJECT_ID).required(),
+    studentIds: Joi.array().items(Joi.string().regex(CONSTANTS.REGEX.MONGO_OBJECT_ID).required()).required()
   })
 };

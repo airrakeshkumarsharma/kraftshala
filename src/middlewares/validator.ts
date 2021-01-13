@@ -22,8 +22,6 @@ export const fileValidator = (mimetypes: string[], extension: string | null, fil
     limits: { fileSize },
     fileFilter: (_req, file, cb) => {
       try {
-        console.log("File Mimetype: ", file.mimetype);
-        console.log("File Name: ", file.originalname);
         if (mimetypes.includes(file.mimetype)) {
           if (extension) {
             if (file.originalname.endsWith(`.${extension}`)) {

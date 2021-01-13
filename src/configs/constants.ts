@@ -3,10 +3,14 @@ export const CONSTANTS = {
     MIN_PASSWORD_LEN: 8,
     MAX_FIRST_NAME_LEN: 50
   },
+  REGEX: {
+    MONGO_OBJECT_ID: /^[a-z\d]{24}$/
+  },
   // All collection name
   COLLECTIONS: {
     USERS: "users",
-    ASSIGNMENT: "assignment"
+    ASSIGNMENT: "assignment",
+    INSTRUCTOR_ASSIGNMENT: "instructorAssignment"
   },
 
   TOKEN_EXPIRE_TIME: {
