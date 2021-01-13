@@ -1,7 +1,8 @@
+import { CONSTANTS } from "@configs";
 import AssignmentController from "@controllers/assignment";
 import { asyncMiddleware } from "@middlewares/asyncMiddleware";
-import { instructorAuth } from "@middlewares/auth";
-import { validator } from "@middlewares/validator";
+import { instructorAuth, studentAuth } from "@middlewares/auth";
+import { fileValidator, validator } from "@middlewares/validator";
 import { assignmentSchema } from "@validators";
 import { Router } from "express";
 
@@ -14,6 +15,13 @@ routes.post(
   instructorAuth,
   validator({ body: assignmentSchema.create }),
   asyncMiddleware(assignmentController.assign)
+);
+
+routes.post(
+  "/submit-assignment/:assignmentId",
+  studentAuth,
+  fileValidator([...CONSTANTS.MIME_TYPE.ASSIGNMENT_FILE], null, 10 * 1024 * 1024).single("file"),
+  asyncMiddleware(assignmentController.submitAssignment)
 );
 
 export { routes as assignmentRoutes };

@@ -13,7 +13,7 @@ const instructorAssignmentController = new InstructorAssignmentController();
 routes.post(
   "/upload",
   instructorAuth,
-  fileValidator([...CONSTANTS.MIME_TYPE.ASSIGNMENT_FILE], null, 50 * 1024 * 1024).single("file"),
+  fileValidator([...CONSTANTS.MIME_TYPE.ASSIGNMENT_FILE], null, 10 * 1024 * 1024).single("file"),
   validator({ body: instructorAssignmentSchema.create }),
   asyncMiddleware(instructorAssignmentController.upload)
 );

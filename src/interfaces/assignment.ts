@@ -5,6 +5,7 @@ export interface AssignmentI {
   assignmentId: Types.ObjectId;
   instructorId: Types.ObjectId;
   studentId: Types.ObjectId;
+  solutionPdf: string;
   isSubmitted: boolean;
   submittedAt: Date;
 }

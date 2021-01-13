@@ -4,3 +4,8 @@ export const assignmentUrlGenerator = (title: string, mimetype: string) => {
   const extension = mimetype.split("/")[1];
   return `upload/${title}-${uuid()}.${extension}`;
 };
+
+export const solutionUrlGenerator = (mimetype: string) => {
+  const extension = mimetype.split("/")[1];
+  return `upload/${uuid()}.${extension}`;
+};

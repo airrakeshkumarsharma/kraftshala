@@ -17,6 +17,10 @@ const assignmentSchema: Schema<any> = new Schema(
       type: Types.ObjectId,
       required: true
     },
+    solutionPdf: {
+      type: String,
+      default: null
+    },
     isSubmitted: {
       type: Boolean,
       default: false
