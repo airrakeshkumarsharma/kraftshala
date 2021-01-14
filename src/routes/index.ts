@@ -1,9 +1,13 @@
 import { Router } from "express";
-import { userAuthRouter } from "./user.auth";
+import { assignmentRoutes } from "./assignment";
+import { instructorAssignmentRouter } from "./instructorAssignment";
+import { userRouter } from "./user";
 
 const router = Router();
 
 // Auth
-router.use("/auth", userAuthRouter);
+router.use("/user", userRouter);
+router.use("/instructor-assignment", instructorAssignmentRouter);
+router.use("/assignment", assignmentRoutes);
 
 export { router };

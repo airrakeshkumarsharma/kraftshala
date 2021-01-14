@@ -11,8 +11,23 @@ export default class BaseService<T> {
     return resource;
   };
 
+  exists = async (filters: object) => {
+    const resource = (await this.model.exists(filters)) as boolean;
+    return resource;
+  };
+
+  insertMany = async (data: T[]) => {
+    const resource = await this.model.insertMany(data);
+    return resource;
+  };
+
   get = async (filters = {}, projection: object): Promise<T[]> => {
     const resource = (await this.model.find(filters, projection)) as T[];
+    return resource;
+  };
+
+  aggregate = async (pipeline: object[]): Promise<T[]> => {
+    const resource = (await this.model.aggregate(pipeline)) as T[];
     return resource;
   };
 
@@ -23,6 +38,11 @@ export default class BaseService<T> {
 
   getOne = async (filters: object = {}, projection: object): Promise<T> => {
     const resource = (await this.model.findOne(filters, projection)) as T;
+    return resource;
+  };
+
+  updateOne = async (filters: object = {}, payload: object): Promise<T> => {
+    const resource = (await this.model.findOne(filters, payload)) as T;
     return resource;
   };
 

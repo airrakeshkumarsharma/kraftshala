@@ -1,4 +1,4 @@
-import { Schema, Model, model, Query } from "mongoose";
+import { Schema, Model, model, Query, Types } from "mongoose";
 import UserSI from "@interfaces/user";
 import { CONSTANTS, mongoose } from "@configs";
 import { hashPassword, validatePassword } from "@helpers/bycrypt";

@@ -41,10 +41,11 @@ const mapFunction = (fun: any) => {
  */
 function basic() {
   return {
-    userType: 1,
-    email: 1,
-    name: 1,
-    subjects: 1
+    instructorId: 1,
+    title: 1,
+    subject: 1,
+    question: 1,
+    deadline: 1
   };
 }
 
@@ -65,9 +66,7 @@ function minimal() {
  * data owner
  */
 function internal() {
-  return {
-    password: 1
-  };
+  return {};
 }
 
-export { build as userProjection };
+export { build as instructorAssignmentProjection };

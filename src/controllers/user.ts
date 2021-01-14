@@ -36,4 +36,13 @@ export default class UserAuthController extends BaseController {
     // TODO: Send through standard response
     return res.send({ data });
   };
+
+  getAllUsers = (userType: string) => async (_req: Request, res: Response) => {
+    const filters = { userType };
+    const projection = userProjection(["basic", "minimal"]);
+
+    const users = await this.service.get(filters, projection);
+
+    return res.send({ data: users });
+  };
 }

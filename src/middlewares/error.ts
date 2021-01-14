@@ -17,5 +17,6 @@ export const errorRes = {
   wrongData: () => error.badRequest("Invalid data"),
   dataExists: () => error.conflict("Data exists"),
   invalidToken: () => error.unauthorized("Invalid token"),
-  systemError: () => error.badImplementation("Something went wrong")
+  systemError: () => error.badImplementation("Something went wrong"),
+  deadLineOver: () => error.forbidden("Deadline is over of this assignment. Please consider other project to assign")
 };
