@@ -59,14 +59,34 @@ export default class AssignmentController extends BaseController {
 
     filters.push({ key: "studentId", value: studentId, type: "id" });
 
-    try {
-      const projection = assignmentProjection(["basic"]);
+    const projection = assignmentProjection(["basic"]);
 
-      const pipeline = { filters, projection, sort };
-      const assignments = await this.service.getAllAssignments(pipeline);
-      return res.send({ data: assignments });
-    } catch (error) {
-      console.log(error);
-    }
+    const pipeline = { filters, projection, sort };
+    const assignments = await this.service.getAllAssignments(pipeline);
+    return res.send({ data: assignments });
+  };
+
+  getAssignmentsByInstructor = async (req: Request, res: Response) => {
+    const { filters, sort }: any = req.query;
+    const { _id: instructorId }: any = req.user;
+
+    filters.push({ key: "instructorId", value: instructorId, type: "id" });
+
+    const projection = assignmentProjection(["basic"]);
+
+    const pipeline = { filters, projection, sort };
+    const assignments = await this.service.getAllAssignments(pipeline);
+    return res.send({ data: assignments });
+  };
+
+  addGradeByInstructor = async (req: Request, res: Response) => {
+    const { grading, assignmentId } = req.body;
+    const { _id: instructorId }: any = req.user;
+
+    const condition = { _id: assignmentId, instructorId, isSubmitted: true };
+    const payload = { grading };
+    await this.service.updateOne(condition, payload);
+
+    return res.send({ data: "Assignment Updated" });
   };
 }

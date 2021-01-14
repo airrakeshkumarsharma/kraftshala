@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { isCelebrateError } from "celebrate";
+import { isCelebrate as isCelebrateError } from "celebrate";
 import { errorRes } from "@middlewares/error";
 
 export const errorHandler = (_err: any, req: Request, res: Response, next: NextFunction) => {

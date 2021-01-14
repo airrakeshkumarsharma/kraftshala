@@ -50,7 +50,11 @@ function basic() {
     "student.name": 1,
     "student.email": 1,
     "instructor.name": 1,
-    "instructor.email": 1
+    "instructor.email": 1,
+    "assignmentDetails.title": 1,
+    "assignmentDetails.subject": 1,
+    "assignmentDetails.question": 1,
+    "assignmentDetails.deadline": 1
   };
 }
 

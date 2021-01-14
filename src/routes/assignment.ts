@@ -25,10 +25,24 @@ routes.put(
 );
 
 routes.get(
-  "/get-assignments",
+  "students/get-assignments",
   studentAuth,
   validator({ query: pipelineSchema }),
   asyncMiddleware(assignmentController.getAssignmentsByStudent)
+);
+
+routes.get(
+  "instructor/get-assignments",
+  instructorAuth,
+  validator({ query: pipelineSchema }),
+  asyncMiddleware(assignmentController.getAssignmentsByInstructor)
+);
+
+routes.put(
+  "instructor/assignments-grade",
+  instructorAuth,
+  validator({ body: assignmentSchema.addGrade }),
+  asyncMiddleware(assignmentController.addGradeByInstructor)
 );
 
 export { routes as assignmentRoutes };

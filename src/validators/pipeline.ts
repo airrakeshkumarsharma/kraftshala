@@ -7,7 +7,7 @@ export const pipeline = Joi.object().keys({
     .items({
       key: Joi.string().required(),
       type: Joi.string(),
-      value: [Joi.string().trim(), Joi.array(), Joi.boolean()],
+      value: [Joi.string().trim().allow(null), Joi.array(), Joi.boolean()],
       upperValue: [Joi.number(), Joi.string().isoDate().allow(null)],
       lowerValue: [Joi.number(), Joi.string().isoDate().allow(null)],
       operation: Joi.string()

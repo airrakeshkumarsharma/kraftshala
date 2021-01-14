@@ -8,6 +8,7 @@ export interface AssignmentI {
   solutionPdf: string;
   isSubmitted: boolean;
   submittedAt: Date;
+  grading: Number;
   student: any;
   instructor: any;
 }

@@ -29,8 +29,8 @@ app.set("port", process.env.PORT || 8000);
 // Body Parser
 // FIXME: Make limit to 5mb
 app.use(express.json());
-app.use(bodyParser.json({ limit: "50mb" }));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: "10mb" }));
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
 // Compression - gzip
 app.use(compression());

@@ -28,6 +28,10 @@ const assignmentSchema: Schema<any> = new Schema(
     submittedAt: {
       type: Date,
       default: null
+    },
+    grading: {
+      type: Number,
+      default: null
     }
   },
   {

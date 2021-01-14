@@ -16,7 +16,7 @@ class AssignmentService extends BaseService<AssignmentSI> {
   }
 
   isDeadlineOver = async (assignmentId: Types.ObjectId) => {
-    const assignmentDeadlineCondition = { assignmentId, deadline: { $gt: new Date() } };
+    const assignmentDeadlineCondition = { _id: assignmentId, deadline: { $gt: new Date() } };
     const resource = await this.instructorAssignmentService.exists(assignmentDeadlineCondition);
     return resource;
   };
@@ -39,6 +39,17 @@ class AssignmentService extends BaseService<AssignmentSI> {
       $lookup: { from: COLLECTIONS.USERS, localField: "instructorId", foreignField: "_id", as: "instructor" }
     });
     lookupPipeline.push({ $unwind: { path: "$instructor", preserveNullAndEmptyArrays: true } });
+
+    // Get Assignment Details
+    lookupPipeline.push({
+      $lookup: {
+        from: COLLECTIONS.INSTRUCTOR_ASSIGNMENT,
+        localField: "assignmentId",
+        foreignField: "_id",
+        as: "assignmentDetails"
+      }
+    });
+    lookupPipeline.push({ $unwind: { path: "$assignmentDetails", preserveNullAndEmptyArrays: true } });
 
     // Insert at position beginning
     buildPipeline.unshift(...lookupPipeline);

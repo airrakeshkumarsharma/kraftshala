@@ -8,13 +8,13 @@ export const userSchema = {
       .required(),
     name: Joi.string().max(CONSTANTS.USER.MAX_FIRST_NAME_LEN).required(),
     email: Joi.string().email().required(),
-    password: Joi.string().min(CONSTANTS.USER.MIN_PASSWORD_LEN).required(),
+    password: Joi.string().min(CONSTANTS.USER.MIN_PASSWORD_LEN).required()
     // Subject is required only in case of instructor
-    subjects: Joi.alternatives().conditional("userType", {
-      is: ENUMS.USERS.userType.INSTRUCTOR,
-      then: Joi.array().items(Joi.string()).required(),
-      otherwise: Joi.disallow()
-    })
+    // subjects: Joi.alternatives().conditional("userType", {
+    //   is: ENUMS.USERS.userType.INSTRUCTOR,
+    //   then: Joi.array().items(Joi.string()).required(),
+    //   otherwise: Joi.disallow()
+    // })
   }),
 
   login: Joi.object().keys({
