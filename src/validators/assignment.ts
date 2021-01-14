@@ -8,6 +8,10 @@ export const assignmentSchema = {
   }),
   addGrade: Joi.object().keys({
     assignmentId: Joi.string().regex(CONSTANTS.REGEX.MONGO_OBJECT_ID).required(),
-    grade: Joi.number().min(0).max(10).required()
+    grading: Joi.number().min(0).max(10).required()
+  }),
+
+  submitAssignment: Joi.object().keys({
+    instructorAssignmentId: Joi.string().regex(CONSTANTS.REGEX.MONGO_OBJECT_ID).required()
   })
 };

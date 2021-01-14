@@ -18,28 +18,29 @@ routes.post(
 );
 
 routes.put(
-  "/submit-assignment/:assignmentId",
+  "/students/submit-assignment/:assignmentId",
   studentAuth,
   fileValidator([...CONSTANTS.MIME_TYPE.ASSIGNMENT_FILE], null, 10 * 1024 * 1024).single("file"),
+  validator({ body: assignmentSchema.submitAssignment }),
   asyncMiddleware(assignmentController.submitAssignment)
 );
 
 routes.get(
-  "students/get-assignments",
+  "/students/get-assignments",
   studentAuth,
   validator({ query: pipelineSchema }),
   asyncMiddleware(assignmentController.getAssignmentsByStudent)
 );
 
 routes.get(
-  "instructor/get-assignments",
+  "/instructor/get-assignments",
   instructorAuth,
   validator({ query: pipelineSchema }),
   asyncMiddleware(assignmentController.getAssignmentsByInstructor)
 );
 
 routes.put(
-  "instructor/assignments-grade",
+  "/instructor/assignments-grade",
   instructorAuth,
   validator({ body: assignmentSchema.addGrade }),
   asyncMiddleware(assignmentController.addGradeByInstructor)

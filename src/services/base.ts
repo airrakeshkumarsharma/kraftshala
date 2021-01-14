@@ -42,7 +42,7 @@ export default class BaseService<T> {
   };
 
   updateOne = async (filters: object = {}, payload: object): Promise<T> => {
-    const resource = (await this.model.findOne(filters, payload)) as T;
+    const resource = (await this.model.updateOne(filters, payload)) as T;
     return resource;
   };
 

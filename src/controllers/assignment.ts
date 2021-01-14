@@ -34,11 +34,12 @@ export default class AssignmentController extends BaseController {
 
   submitAssignment = async (req: Request, res: Response) => {
     const { assignmentId }: any = req.params;
+    const { instructorAssignmentId } = req.body;
     const { _id: studentId }: any = req.user;
     const { file } = req;
 
     // Check wether its deadline is over
-    const isDeadlineOver = await this.service.isDeadlineOver(assignmentId);
+    const isDeadlineOver = await this.service.isDeadlineOver(instructorAssignmentId);
     if (!isDeadlineOver) {
       throw errorRes.deadLineOver();
     }
@@ -46,8 +47,9 @@ export default class AssignmentController extends BaseController {
     const { url } = saveFile(file.buffer, solutionUrlGenerator(file.mimetype));
 
     // Update Assignment
-    const filters = { _id: assignmentId, studentId };
+    const filters = { _id: assignmentId, studentId, isSubmitted: false };
     const payload = { solutionPdf: url, isSubmitted: true, submittedAt: new Date() };
+
     await this.service.updateOne(filters, payload);
 
     return res.send({ data: "Assignment submitted successfully" });

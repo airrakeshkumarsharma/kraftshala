@@ -47,6 +47,7 @@ function basic() {
     solutionPdf: 1,
     isSubmitted: 1,
     submittedAt: 1,
+    grading: 1,
     "student.name": 1,
     "student.email": 1,
     "instructor.name": 1,
